@@ -3,10 +3,13 @@
     display: flex;
     flex-direction: column;
     justify-content: space-around;
+    text-align: center;
+    align-items: center;
     background-color: hotpink;
-    width: 500px;
-    height: 200px;
+    width: 100%;
+    height: 40%;
     z-index: 20;
+    top: 10px;
 }
 
 .playAgainButton {

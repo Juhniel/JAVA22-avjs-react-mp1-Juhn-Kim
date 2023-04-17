@@ -168,6 +168,7 @@ export default function App() {
       />
 
       <GameControls handleRPSChoice={handleRPSChoice} />
+      
       {gameOverStatus && <PlayAgain onPlayAgain={handlePlayAgain} />}
 
       <HighScoresList highScores={highScores} />
