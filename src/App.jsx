@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
-import PlayAgain from "./PlayAgain";
-
+import PlayAgain from "./components/PlayAgain";
+import NameInputForm from "./components/NameInputForm";
+import PlayerInfo from "./components/PlayerInfo";
+import GameControls from "./components/GameControls";
+import HighScoresList from "./components/HighScoresList";
 
 export default function App() {
   const [nameInputValue, setNameInputValue] = useState("");
@@ -17,13 +20,11 @@ export default function App() {
 
   const choices = ["rock", "paper", "scissors"];
 
-
   useEffect(() => {
     if (computerScore === 1) {
       gameOver(playerScore, submittedName);
     }
   }, [computerScore]);
-
 
   function handleInputChange(e) {
     setNameInputValue(e.target.value);
@@ -151,64 +152,25 @@ export default function App() {
 
   return (
     <>
-      <h1 className="header">Rock, Scissor, Paper</h1>
-      <form onSubmit={handleSubmit} className="new-player-form">
-        <div>
-          <label htmlFor="nameInput">Enter name:</label>
-          <input
-            type="text"
-            id="nameInput"
-            value={nameInputValue}
-            onChange={handleInputChange}
-          />
-        </div>
-        <button className="nameButton">Submit</button>
-      </form>
+      <NameInputForm
+        nameInputValue={nameInputValue}
+        handleInputChange={handleInputChange}
+        handleSubmit={handleSubmit}
+      />
 
-      {submittedName && <p>Welcome {submittedName}!</p>}
-      {playerOption && (
-        <p>
-          {submittedName ? submittedName : "Player"} - chose: {playerOption}
-        </p>
-      )}
-      {computerOption && <p>Computer chose: {computerOption}</p>}
-      {gameWinner && <p>Winner of the game is: {gameWinner}</p>}
-      {gameWinner && (
-        <p>
-          {playerScore} - {computerScore}
-        </p>
-      )}
+      <PlayerInfo
+        submittedName={submittedName}
+        playerOption={playerOption}
+        computerOption={computerOption}
+        gameWinner={gameWinner}
+        playerScore={playerScore}
+        computerScore={computerScore}
+      />
 
-      
-
-      <div className="RPSContainer">
-        <button className="RPSButtons" value="rock" onClick={handleRPSChoice}>
-          Rock
-        </button>
-        <button className="RPSButtons" value="paper" onClick={handleRPSChoice}>
-          Paper
-        </button>
-        <button
-          className="RPSButtons"
-          value="scissors"
-          onClick={handleRPSChoice}
-        >
-          Scissor
-        </button>
-      </div>
-
+      <GameControls handleRPSChoice={handleRPSChoice} />
       {gameOverStatus && <PlayAgain onPlayAgain={handlePlayAgain} />}
 
-      <h1>Highscore</h1>
-      <div id="score-list">
-        <ol>
-          {highScores.map(([key, userObj]) => (
-            <li key={key}>
-              {userObj.name} - Score: {userObj.score}
-            </li>
-          ))}
-        </ol>
-      </div>
+      <HighScoresList highScores={highScores} />
     </>
   );
 }

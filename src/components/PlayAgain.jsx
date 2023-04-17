@@ -1,5 +1,5 @@
 import React from "react";
-import "./PlayAgain.css";
+import "../PlayAgain.css";
 
 export default function PlayAgain(props) {
     function handlePlayAgain(e) {
